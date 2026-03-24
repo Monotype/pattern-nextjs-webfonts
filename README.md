@@ -1,2 +1,3 @@
 # pattern-nextjs-webfonts
-Using Monotype web fonts in Next.js
+
+This repository provides a runnable Next.js pattern demonstrating license‑safe, self‑hosted web font usage.
