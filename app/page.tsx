@@ -1,0 +1,1 @@
+export default function Page(){return <h1>Next.js Webfonts Pattern</h1>}
