@@ -34,6 +34,10 @@ Full documentation, including scenario matrices and developer guides:
 ## 🏗️ Runnable Example
 See `/app`, `/src`, `/demo`, or `/server`, depending on this pattern.
 
+## Requirements
+- Node.js 18+
+- Next.js 14.x (this pattern is not yet validated against Next 15+)
+
 ## 🧪 CI & Validation
 This repository includes:
 - Build & lint verification
