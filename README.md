@@ -41,7 +41,7 @@ Font files are intentionally excluded from this repository via `.gitignore`. You
 ## Requirements
 
 - Node.js 18+
-- Next.js 14.x (not yet validated against Next.js 15+)
+- Next.js 14.2.35+ (not yet validated against Next.js 15+)
 
 ## Related patterns
 
