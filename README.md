@@ -1,53 +1,59 @@
-# <PATTERN> Pattern
-_Authoritative, license-safe implementation example_
+# pattern-nextjs-webfonts
 
-This repository is one of Monotype’s official **Font Implementation Patterns**.
-It demonstrates **best-practice, license-safe usage** of Monotype fonts in
-<DESCRIPTION>.
+> License-safe web font loading in Next.js using `next/font/local`.
 
-## 🔍 Scenario Covered
-- Clear, explicit rules for license-safe usage.
-- Demonstration app showing the correct and incorrect approaches.
-- No CDN redistribution.
-- Self-hosted licensed fonts.
-- Cross-linking to canonical reference rules.
+This repository demonstrates the correct pattern for loading self-hosted Monotype fonts in a Next.js 14 application. Fonts are loaded at build time from local infrastructure, avoiding runtime redistribution of font files to end users.
 
-## 🧭 Reference: Canonical Implementation Truths
-All authoritative guidance lives in:
+## What this pattern demonstrates
 
-👉 https://github.com/Monotype/reference-fonts-implementation
+- Loading fonts via `next/font/local` rather than a CDN import or `<link>` tag
+- Excluding font files from version control while documenting where they must be placed
+- Applying fonts via CSS class names for consistent usage across components
 
-This repository implements those truths for the <PATTERN> scenario.
+## Why `next/font/local` is the license-safe approach
 
-## 🔗 Related Patterns
-- Next.js: https://github.com/Monotype/pattern-nextjs-webfonts  
-- React: https://github.com/Monotype/pattern-react-webfonts  
-- SaaS embedding: https://github.com/Monotype/pattern-saas-fonts-embedding  
-- CI/CD: https://github.com/Monotype/pattern-cicd-fonts-usage  
-- Variable fonts: https://github.com/Monotype/pattern-variable-fonts-usage  
+Importing fonts from an external CDN causes font files to be fetched from a third-party server at runtime, outside your licensing and infrastructure control. `next/font/local` loads fonts from your own infrastructure at build time — font data stays on your server, and delivery remains within the scope of your web font license.
 
-## 📘 Documentation Hub
-Full documentation, including scenario matrices and developer guides:
+## Canonical assertions implemented
 
-👉 <Your Docs Hub URL>
+This pattern implements the following assertions from [reference-fonts-implementation](https://github.com/Monotype/reference-fonts-implementation):
 
-## 🏗️ Runnable Example
-See `/app`, `/src`, `/demo`, or `/server`, depending on this pattern.
+- `pc-008` — self-hosting web fonts requires a web font license; desktop licenses do not permit web delivery
+- `bd-001` — self-hosted fonts integrate into CI/CD pipelines as versioned static assets
+- `pc-010` — cross-origin font delivery requires CORS configuration
+
+## Usage
+
+1. Obtain font files under a valid Monotype web font license
+2. Place `.woff2` files in `public/fonts/` — this directory is gitignored; do not commit font files
+3. Update the `src` path in `app/page.tsx` to match your font filename
+4. Install and run:
+
+```bash
+npm install
+npm run dev
+```
+
+## Font files
+
+Font files are intentionally excluded from this repository via `.gitignore`. You must supply your own files under a valid Monotype web font license. See `public/fonts/placeholder.txt` for placement instructions.
 
 ## Requirements
+
 - Node.js 18+
-- Next.js 14.x (this pattern is not yet validated against Next 15+)
+- Next.js 14.x (not yet validated against Next.js 15+)
 
-## 🧪 CI & Validation
-This repository includes:
-- Build & lint verification
-- Optional font scanning guardrails
-- Pattern-specific validation steps
+## Related patterns
 
-## 📄 License
-Content © Monotype. Licensed documentation and pattern examples are provided
-for educational and interoperability purposes.
+- [pattern-react-webfonts](https://github.com/Monotype/pattern-react-webfonts) — React + Vite, CSS variable delivery
+- [pattern-saas-fonts-embedding](https://github.com/Monotype/pattern-saas-fonts-embedding) — server-controlled font endpoints
+- [pattern-cicd-fonts-usage](https://github.com/Monotype/pattern-cicd-fonts-usage) — CI/CD pipeline font management
+- [pattern-variable-fonts-usage](https://github.com/Monotype/pattern-variable-fonts-usage) — variable font axes via CSS
 
-## 📣 Support
-Use GitHub Discussions (Q&A category):
-> https://github.com/Monotype/<pattern-repo>/discussions
+## Support
+
+Use GitHub Discussions (Q&A category) for questions about this pattern.
+
+## License
+
+Code in this repository is provided for educational and interoperability purposes. Font files are not included. Canonical guidance © Monotype Imaging Inc.
