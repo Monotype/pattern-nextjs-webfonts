@@ -1,3 +1,8 @@
 node_modules/
 .env*
 .DS_Store
+.next/
+*.otf
+*.ttf
+*.woff
+*.woff2
