@@ -5,7 +5,7 @@ import localFont from 'next/font/local'
 // data in the browser (normal for the web); the pattern avoids third-party CDN
 // fetches and keeps delivery under your web font license for self-hosted use.
 const brandFont = localFont({
-  src: '../public/fonts/MyFont.woff2',
+  src: '../public/fonts/Gotham_normal_normal_350_subset1.woff2',
   display: 'swap',
   variable: '--font-brand',
 })
