@@ -14,5 +14,5 @@ This repository is a reference implementation pattern. Changes should remain min
 ## Style
 
 - Keep the implementation minimal — this is a pattern, not a production app
-- Do not commit font files; the `.gitignore` exclusion of font extensions must remain intact
+- The **demo subset** font under `public/fonts/` is intentional so CI and `next build` succeed; do not add unrelated font binaries without legal review. The `.gitignore` rule for `*.woff2` still applies to **new** files unless explicitly whitelisted or force-added
 - If a canonical assertion changes in the reference repo, update this pattern to stay aligned
