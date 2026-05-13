@@ -2,5 +2,7 @@ Place your licensed .woff2 files in this directory (same folder as this file).
 
 - Obtain files under a valid Monotype web font license for self-hosted delivery.
 - Font binaries are gitignored — do not commit them to this repository.
-- The sample in app/page.tsx uses Gotham_normal_normal_350_subset1.woff2. Change
-  the `src` path in the localFont() call to match your filename.
+- The sample in app/page.tsx expects a file named MyFont.woff2. The existing
+  MyFont.woff2 is a heavily subsetted version of Gotham Regular for demo purposes.
+  Either copy over it with a font of your choice in your local workspace
+  or change the `src` path in the localFont() call to match your filename.
