@@ -2,7 +2,7 @@
 
 > License-safe web font loading in Next.js using `next/font/local`.
 
-This repository demonstrates the correct pattern for loading self-hosted Monotype fonts in a Next.js 14 application. Fonts are loaded at build time from local infrastructure, avoiding runtime redistribution of font files to end users.
+This repository demonstrates the correct pattern for loading self-hosted Monotype fonts in a Next.js 14 application. Fonts are processed at **build time** from paths in your repo and **served by your Next app** (end users’ browsers still receive font data for rendering — that is normal for the web). The important distinction is **self-hosted delivery under your web font license**, not third-party CDN fetches outside your infrastructure control.
 
 ## What this pattern demonstrates
 
@@ -12,7 +12,7 @@ This repository demonstrates the correct pattern for loading self-hosted Monotyp
 
 ## Why `next/font/local` is the license-safe approach
 
-Importing fonts from an external CDN causes font files to be fetched from a third-party server at runtime, outside your licensing and infrastructure control. `next/font/local` loads fonts from your own infrastructure at build time — font data stays on your server, and delivery remains within the scope of your web font license.
+Importing fonts from an external CDN causes font files to be fetched from a third-party server at runtime, outside your licensing and infrastructure control. `next/font/local` reads font files from **your** project at build time and emits optimized assets served **from your deployment**, which aligns with **self-hosted** web font licensing expectations instead of delegating delivery to another host you do not control.
 
 ## Canonical assertions implemented
 
@@ -21,6 +21,8 @@ This pattern implements the following assertions from [reference-fonts-implement
 - `pc-008` — self-hosting web fonts requires a web font license; desktop licenses do not permit web delivery
 - `bd-001` — self-hosted fonts integrate into CI/CD pipelines as versioned static assets
 - `pc-010` — cross-origin font delivery requires CORS configuration
+
+In this minimal app, font assets are served **same-origin** with the page, so you typically do not hit cross-origin `@font-face` blocking. **`pc-010` still applies** if you move fonts to another **origin** (for example a separate CDN or static host): you must send correct `Access-Control-Allow-Origin` (and related) headers on font responses.
 
 ## Usage
 
@@ -33,6 +35,8 @@ This pattern implements the following assertions from [reference-fonts-implement
 npm install
 npm run dev
 ```
+
+`npm install` writes a new `package-lock.json` if one is not present — commit it if your team relies on a lockfile for reproducible installs.
 
 ## Font files
 
@@ -56,4 +60,4 @@ Use GitHub Discussions (Q&A category) for questions about this pattern.
 
 ## License
 
-Code in this repository is provided for educational and interoperability purposes. Font files are not included. Canonical guidance © Monotype Imaging Inc.
+Sample application **code** in this repository is licensed under the [MIT License](LICENSE). Font files are **not** included. Canonical assertion text in [reference-fonts-implementation](https://github.com/Monotype/reference-fonts-implementation) remains subject to that repository’s terms.

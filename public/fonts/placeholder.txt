@@ -1,1 +1,6 @@
-place fonts here
+Place your licensed .woff2 files in this directory (same folder as this file).
+
+- Obtain files under a valid Monotype web font license for self-hosted delivery.
+- Font binaries are gitignored — do not commit them to this repository.
+- The sample in app/page.tsx expects a file named MyFont.woff2. Either add that
+  file or change the `src` path in the localFont() call to match your filename.
