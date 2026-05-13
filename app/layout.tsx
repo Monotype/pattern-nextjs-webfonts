@@ -8,7 +8,7 @@ import localFont from 'next/font/local'
 // `variable` registers `--font-brand` on <body> for `font-family: var(--font-brand)`
 // in global CSS or MDX; `className` applies the face app-wide.
 const brandFont = localFont({
-  src: '../public/fonts/Gotham_normal_normal_350_subset1.woff2',
+  src: '../public/fonts/MyFont.woff2',
   display: 'swap',
   variable: '--font-brand',
 })
