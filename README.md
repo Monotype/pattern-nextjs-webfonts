@@ -39,7 +39,7 @@ This repository includes a committed **`package-lock.json`**. After cloning, use
 
 ## Font files
 
-This repository includes **`public/fonts/MyFont.woff2`**, a heavily subsetted version of Gotham Regular, so **`npm run build`** and **GitHub Actions** work out of the box. It demonstrates self-hosting only; **redistribution rights for that file are not granted to you**—use fonts you are licensed to deploy. For your own project, replace the file and the `localFont({ src: ... })` path in `app/layout.tsx`. See `public/fonts/placeholder.txt` for placement notes.
+This repository includes **`public/fonts/MyFont.woff2`**, a heavily subsetted version of Gotham Regular, so **`npm run build`** and **GitHub Actions** work out of the box. That file is licensed only for limited testing per **LICENSE** (Monotype terms) and this README’s **License** section—not for regular website use or redistribution. For your own project, replace the file and the `localFont({ src: ... })` path in `app/layout.tsx`. See `public/fonts/placeholder.txt` for placement notes.
 
 To commit a different binary despite `*.woff2` in `.gitignore`, use **`git add -f public/fonts/YourFile.woff2`** once, or add a **`!public/fonts/YourFile.woff2`** line after the `*.woff2` rule.
 
@@ -61,4 +61,4 @@ Use GitHub Discussions (Q&A category) for questions about this pattern.
 
 ## License
 
-Sample application **code** in this repository is licensed under the [MIT License](LICENSE). The **subset font file** in `public/fonts/` is included **only** as a build/CI demonstration asset; it is **not** licensed to third parties for separate redistribution—use fonts you have rights to ship. Canonical assertion text in [reference-fonts-implementation](https://github.com/Monotype/reference-fonts-implementation) remains subject to that repository’s terms.
+Sample application code in this repository is licensed under the MIT License. The subset font file in public/fonts/ is included only as a build/CI demonstration asset and licensed for limited testing purposes only; it is not licensed for regular use on websites or redistribution. Please refer to the LICENSE file in the repository for both licenses. Canonical assertion text in [reference-fonts-implementation](https://github.com/Monotype/reference-fonts-implementation) remains subject to that repository’s terms.
