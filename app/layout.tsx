@@ -7,6 +7,8 @@ import localFont from 'next/font/local'
 // fetches and keeps delivery under your web font license for self-hosted use.
 // `variable` registers `--font-brand` on <body> for `font-family: var(--font-brand)`
 // in global CSS or MDX; `className` applies the face app-wide.
+// If your license requires a tracking script alongside self-hosted fonts (pc-012 in
+// reference-fonts-implementation), add it explicitly (e.g. next/script)—this sample does not.
 const brandFont = localFont({
   src: '../public/fonts/MyFont.woff2',
   display: 'swap',
