@@ -21,6 +21,7 @@ This pattern implements the following assertions from [reference-fonts-implement
 - `pc-008` — self-hosting web fonts requires a web font license; desktop licenses do not permit web delivery
 - `bd-001` — self-hosted fonts integrate into CI/CD pipelines as versioned static assets
 - `pc-010` — cross-origin font delivery requires CORS configuration
+- `pc-012` — some Monotype web font licenses require a tracking script alongside self-hosted font files; `next/font/local` covers delivery only—use e.g. `next/script` when your license mandates tracking. For privacy-related scope, see the **Clarification** on [pc-012](https://github.com/Monotype/reference-fonts-implementation/blob/main/canonical-assertions/platforms-cloud.md#some-monotype-web-font-licenses-require-a-tracking-script-alongside-self-hosted-font-files).
 
 In this minimal app, font assets are served **same-origin** with the page, so you typically do not hit cross-origin `@font-face` blocking. **`pc-010` still applies** if you move fonts to another **origin** (for example a separate CDN or static host): you must send correct `Access-Control-Allow-Origin` (and related) headers on font responses.
 
