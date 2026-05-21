@@ -2,7 +2,7 @@
 
 > License-safe web font loading in Next.js using `next/font/local`.
 
-This repository demonstrates the correct pattern for loading self-hosted Monotype fonts in a Next.js 14 application. Fonts are processed at **build time** from paths in your repo and **served by your Next app** (end users’ browsers still receive font data for rendering — that is normal for the web). The important distinction is **self-hosted delivery under your web font license**, not third-party CDN fetches outside your infrastructure control.
+This repository demonstrates the correct pattern for loading self-hosted Monotype fonts in a Next.js 15 application (App Router, React 19). Fonts are processed at **build time** from paths in your repo and **served by your Next app** (end users’ browsers still receive font data for rendering — that is normal for the web). The important distinction is **self-hosted delivery under your web font license**, not third-party CDN fetches outside your infrastructure control.
 
 ## What this pattern demonstrates
 
@@ -47,7 +47,8 @@ To commit a different binary despite `*.woff2` in `.gitignore`, use **`git add -
 ## Requirements
 
 - Node.js 18+
-- Next.js 14.2.35+
+- Next.js 15.3.2+ (see `package-lock.json` for the exact version CI uses)
+- React 19.1.0+
 
 ## Related patterns
 
