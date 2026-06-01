@@ -39,7 +39,7 @@ The correct approach is to use [`next/font/local`](https://nextjs.org/docs/app/b
 
 No. Monotype web font licenses require that font files be served from infrastructure under your control. Importing fonts from an external CDN — including via [`next/font/google`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts#google-fonts) or a `<link>` tag pointing to a third-party host — transfers delivery to a server you do not operate, which falls outside the scope of a self-hosted web font license. Use `next/font/local` with files stored in your project to remain compliant.
 
-### Does next/font/local require CORS configuration?
+### Does `next/font/local` require CORS configuration?
 
 Only if you move font files to a **separate origin** (for example, a dedicated CDN or static file host). When fonts are served from the same domain as your Next.js app — the default with `next/font/local` — browsers do not trigger cross-origin font-fetching and no `Access-Control-Allow-Origin` header is needed. If you later move fonts to a different origin, you must add a scoped `Access-Control-Allow-Origin: https://yourdomain.com` header on font responses (use `*` only for fully public, non-credentialed endpoints — not appropriate for licensed fonts), per the [CORS specification](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) and [MDN `@font-face` guidance](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face). Missing headers often cause **silent** fallback to system fonts — inspect the Network tab and rendered typeface, not only the Console. See [pc-010](https://github.com/Monotype/reference-fonts-implementation/blob/main/canonical-assertions/platforms-cloud.md#cross-origin-font-delivery-requires-cors-configuration-missing-headers-cause-silent-font-blocking).
 
@@ -47,11 +47,11 @@ Only if you move font files to a **separate origin** (for example, a dedicated C
 
 Yes. A **web font license** is required — a standard desktop font license does not permit web delivery. Web font licenses specifically authorize embedding font data in web pages delivered to end users' browsers. Contact Monotype or review your license agreement to confirm coverage before deploying fonts via `next/font/local`. See [pc-008](https://github.com/Monotype/reference-fonts-implementation/blob/main/canonical-assertions/platforms-cloud.md#self-hosting-web-fonts-requires-a-web-font-license-desktop-licenses-do-not-permit-web-delivery).
 
-### How do I make npm run build and GitHub Actions work without committing real font files?
+### How do I make `npm run build` and GitHub Actions work without committing real font files?
 
 This repository ships a heavily subsetted `.woff2` demo file (`public/fonts/MyFont.woff2`) that satisfies the build step without exposing production-licensed font data. For your own project, add your licensed `.woff2` files to `public/fonts/`, reference them in the `localFont({ src: '...' })` call in `app/layout.tsx`, and use environment-specific secrets or artifact storage to inject production files in CI. The `.gitignore` excludes `*.woff2` by default; use `git add -f` or a `!` exception rule to commit a specific file. See [bd-001](https://github.com/Monotype/reference-fonts-implementation/blob/main/canonical-assertions/build-and-delivery.md#self-hosted-fonts-integrate-into-cicd-pipelines-as-versioned-static-assets) and [pattern-cicd-fonts-usage](https://github.com/Monotype/pattern-cicd-fonts-usage).
 
-### Does next/font/local work with variable fonts?
+### Does `next/font/local` work with variable fonts?
 
 Yes. Pass an array of `src` objects to `localFont`, each specifying a `path`, `weight`, and `style`. For variable fonts, set `weight` to a range string such as `'100 900'`. Next.js will generate the appropriate [`@font-face`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face) declarations automatically. See [pattern-variable-fonts-usage](https://github.com/Monotype/pattern-variable-fonts-usage) for a full variable font axis implementation using CSS.
 
