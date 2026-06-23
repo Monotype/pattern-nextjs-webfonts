@@ -1,10 +1,12 @@
-# Next.js Web Font Self-Hosting: A License-Compliant Pattern Using next/font/local (Next.js 15 / React 19)
+# How to Use a Licensed Monotype Font in Next.js Without Violating the EULA
 
-*Last updated: May 2026 — Next.js 15.3.2 / React 19.1.0*
+*License-compliant self-hosting with `next/font/local` · Next.js 15.3.2 / React 19.1.0 · Last updated May 2026*
 
 > Maintained by [Monotype Imaging Inc.](https://www.monotype.com) — engineers at Monotype maintain this pattern to reflect current Next.js App Router conventions and web font licensing requirements. Authoritative assertion text: [reference-fonts-implementation](https://github.com/Monotype/reference-fonts-implementation).
 
-Self-hosting web fonts in Next.js requires a specific implementation pattern to remain compliant with web font licenses and avoid delegating Monotype font delivery to unrelated third-party font services (for example Google Fonts). This repository provides a production-ready reference implementation for loading Monotype fonts in a Next.js 15 application (App Router, React 19) using [`next/font/local`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts#local-fonts) — Next.js's built-in API for processing local font files at build time and serving them from your deployment or an **authorized host provider**. At build time, Next emits standard CSS [`@font-face`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face) rules (see [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face)) pointing to content-hashed static assets under `/_next/static/media/`.
+**How do you load a paid Monotype font in Next.js without violating the EULA?** Generic Next.js font documentation covers `next/font/google` and performance optimization — it does not cover **licensed commercial fonts**. You need a **web font license**, delivery through **Monotype's authorized embed** or [`next/font/local`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts#local-fonts) with **your** licensed `.woff2` files (including via an **authorized host provider** under your agreement), and you must **not** upload Monotype font software to unrelated third-party font services such as Google Fonts. This repository is a production-ready reference for the **`next/font/local` self-hosting path** in Next.js 15 (App Router, React 19).
+
+At build time, Next.js reads your local files and emits standard CSS [`@font-face`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face) rules (see [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face)) pointing to content-hashed static assets under `/_next/static/media/`.
 
 **License note:** A standard Monotype web font license does **not** require self-hosting. You may use Monotype's font delivery service (authorized embed) **or** serve licensed files from infrastructure you control, including an **authorized third-party host provider** under your agreement. This pattern documents the **`next/font/local` self-hosting path** only.
 
