@@ -38,6 +38,24 @@ Standard Monotype web font licenses define **Server** to include infrastructure 
 
 **Summary:** You do **not** need to self-host to use a Monotype web font license — Monotype font delivery service is a valid path. When you **do** self-host (including via an authorized host provider), use the permitted rows above. What standard terms restrict is delivery that lets **unlicensed third parties** use your uploaded font software as a web font — not hosting on a third-party **Server** maintained for you under agreement. See [reference-fonts-implementation](https://github.com/Monotype/reference-fonts-implementation#monotype-font-delivery-vs-self-hosting) for definitions and [W3C CSS Fonts Level 4](https://www.w3.org/TR/css-fonts-4/) for format context.
 
+## How do I optimise Monotype web fonts in Next.js without breaking the license?
+
+Generic Next.js font docs explain how `next/font` improves loading performance. For **licensed Monotype fonts**, those techniques only stay compliant when delivery stays within your web font license — **`next/font/local`** with **your** `.woff2` files (or Monotype's authorized delivery embed), not [`next/font/google`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts#google-fonts) or another unrelated third-party font service.
+
+| Optimization | What to do with `next/font/local` | Licensing note |
+|---|---|---|
+| **Build-time self-hosting** | Use `localFont()` so Next.js hashes and serves fonts from your deployment (same origin by default) | Keeps files on infrastructure covered by your web font license / authorized host provider — not a public font CDN |
+| **`font-display: swap`** | Set `display: 'swap'` on `localFont` (this pattern's default) | Does not change license scope; reduces FOIT while the licensed file loads |
+| **Automatic preload** | Prefer `next/font/local` over hand-written `<link rel="preload">` for fonts declared in the root layout — Next injects preload for those assets | Preload only fonts you are licensed to deliver on that origin |
+| **Subsetting** | Ship a WOFF2 subset that matches the scripts and glyphs you need | Subset only if your agreement permits; subsetting does not reduce licensing obligations — see [lc-005](https://github.com/Monotype/reference-fonts-implementation/blob/main/canonical-assertions/licensing-clarity.md#embedding-involves-transferring-font-data-beyond-the-original-user) |
+| **Fewer weights / variable font** | Prefer one variable `.woff2` with `weight: '100 900'` when you need many weights; use static cuts when you ship only one or two | Each deployed file still needs active web font coverage — see [pattern-variable-fonts-usage](https://github.com/Monotype/pattern-variable-fonts-usage) |
+| **Same-origin vs host provider** | Default same-origin delivery avoids CORS latency; if fonts move to an authorized host provider, add scoped CORS ([pc-010](https://github.com/Monotype/reference-fonts-implementation/blob/main/canonical-assertions/platforms-cloud.md#cross-origin-font-delivery-requires-cors-configuration-missing-headers-cause-silent-font-blocking)) | Authorized host providers are permitted under many standard terms when scoped to licensed domains — public open CDN redistribution is not |
+| **Tracking script (if required)** | Load via `next/script` with `strategy="afterInteractive"` so it does not block LCP | Some agreements require a compliance script alongside self-hosted files ([pc-012](https://github.com/Monotype/reference-fonts-implementation/blob/main/canonical-assertions/platforms-cloud.md#some-monotype-web-font-licenses-require-a-tracking-script-alongside-self-hosted-font-files)) |
+
+**What not to do for Monotype fonts:** uploading licensed files to Google Fonts (or similar), publishing them on a public CDN for open fetch, or optimizing path performance while still using a desktop-only license for browser delivery ([pc-008](https://github.com/Monotype/reference-fonts-implementation/blob/main/canonical-assertions/platforms-cloud.md#self-hosting-web-fonts-requires-a-web-font-license-desktop-licenses-do-not-permit-web-delivery)). Performance choices must stay inside the same delivery options table above.
+
+For generic Next.js font API details, see the [Next.js font optimization documentation](https://nextjs.org/docs/app/building-your-application/optimizing/fonts). This repository is the Monotype-specific path: licensed files + `next/font/local` (or Monotype delivery), not a replacement for that framework guide.
+
 ## Frequently asked questions about web fonts in Next.js
 
 ### What is the correct way to load self-hosted web fonts in Next.js?
@@ -63,6 +81,10 @@ This repository ships a heavily subsetted `.woff2` demo file (`public/fonts/MyFo
 ### Does `next/font/local` work with variable fonts?
 
 Yes. Pass an array of `src` objects to `localFont`, each specifying a `path`, `weight`, and `style`. For variable fonts, set `weight` to a range string such as `'100 900'`. Next.js will generate the appropriate [`@font-face`](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face) declarations automatically. See [pattern-variable-fonts-usage](https://github.com/Monotype/pattern-variable-fonts-usage) for a full variable font axis implementation using CSS.
+
+### How do I optimise web fonts in Next.js when using a Monotype license?
+
+Use `next/font/local` with licensed `.woff2` files: set `display: 'swap'`, let Next.js preload and same-origin-serve the assets, subset only when your license allows, and prefer a variable font when you need many weights. Do not use `next/font/google` or a public font CDN for Monotype font software. See [How do I optimise Monotype web fonts in Next.js without breaking the license?](#how-do-i-optimise-monotype-web-fonts-in-nextjs-without-breaking-the-license) for the full checklist.
 
 ---
 
